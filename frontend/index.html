@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PortfolioForge</title>
+<link rel="stylesheet" href="app.css" />
+</head>
+<body>
+
+<div class="shell">
+
+  <div class="brand">
+    <div class="brand__mark">PF</div>
+    <div class="brand__name">Portfolio<span>Forge</span></div>
+  </div>
+
+  <!-- ============================== step rail ============================== -->
+  <nav class="gauge" id="gauge">
+    <div class="gauge__step is-active" data-step="1">
+      <div class="gauge__num">1</div>
+      <div class="gauge__body">
+        <div class="gauge__title">Upload resume</div>
+        <div class="gauge__desc">Paste or drop your resume.txt</div>
+      </div>
+    </div>
+    <div class="gauge__step" data-step="2">
+      <div class="gauge__num">2</div>
+      <div class="gauge__body">
+        <div class="gauge__title">Pick sections</div>
+        <div class="gauge__desc">Keep, drop, or add sections</div>
+      </div>
+    </div>
+    <div class="gauge__step" data-step="3">
+      <div class="gauge__num">3</div>
+      <div class="gauge__body">
+        <div class="gauge__title">Preview &amp; download</div>
+        <div class="gauge__desc">Live preview, then export</div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================== main panel ============================== -->
+  <main class="panel">
+
+    <!-- ---------- Screen 1: Upload ---------- -->
+    <section class="screen is-active" id="screen-upload">
+      <p class="eyebrow">Step 1</p>
+      <h1 class="screen__title">Bring your resume</h1>
+      <p class="screen__sub">Drop in a resume.txt file, or paste the plain text directly. The forge reads it and proposes the sections your portfolio should have.</p>
+
+      <div class="dropzone" id="dropzone">
+        <div class="dropzone__row">
+          <span class="dropzone__label">resume.txt</span>
+          <span id="filePillWrap"></span>
+        </div>
+        <textarea id="resumeText" placeholder="Paste your resume text here, or drag a .txt file onto this box..."></textarea>
+        <input type="file" id="fileInput" accept=".txt,text/plain" hidden />
+      </div>
+
+      <div class="error-banner" id="uploadError"></div>
+
+      <div class="forge-bar" id="uploadForgeBar">
+        <span>analyzing resume…</span>
+        <div class="forge-bar__track"><div class="forge-bar__fill"></div></div>
+      </div>
+
+      <div class="actions-row">
+        <button class="btn btn--upload-secondary" id="browseBtn" type="button">Choose a .txt file</button>
+        <button class="btn btn--primary" id="analyzeBtn" type="button">Analyze resume →</button>
+      </div>
+    </section>
+
+    <!-- ---------- Screen 2: Section picker ---------- -->
+    <section class="screen" id="screen-sections">
+      <p class="eyebrow">Step 2</p>
+      <h1 class="screen__title">Choose your sections</h1>
+      <p class="screen__sub">Suggested from your resume. Uncheck anything you don't want, or add a custom section of your own.</p>
+
+      <div class="section-list" id="sectionList"></div>
+
+      <div style="margin-top:10px; display:flex; flex-direction:column; gap:10px;">
+        <button class="add-section" id="addSectionToggle" type="button">+ Add a custom section</button>
+        <form class="add-section-form" id="addSectionForm">
+          <input type="text" id="customSectionName" placeholder="Section name (e.g. Publications)" />
+          <textarea id="customSectionDesc" placeholder="What should this section contain? Describe it — the forge will pull matching info from your resume." rows="2"></textarea>
+          <div class="add-section-form__row">
+            <button class="btn btn--ghost" id="cancelCustomSection" type="button">Cancel</button>
+            <button class="btn btn--primary" id="confirmCustomSection" type="button">Add section</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="error-banner" id="sectionsError"></div>
+
+      <div class="forge-bar" id="generateForgeBar">
+        <span>generating portfolio…</span>
+        <div class="forge-bar__track"><div class="forge-bar__fill"></div></div>
+      </div>
+
+      <div class="actions-row">
+        <button class="btn btn--ghost" id="backToUpload" type="button">← Back</button>
+        <button class="btn btn--primary" id="generateBtn" type="button">Generate portfolio →</button>
+      </div>
+    </section>
+
+    <!-- ---------- Screen 3: Preview & download ---------- -->
+    <section class="screen" id="screen-preview">
+      <p class="eyebrow">Step 3</p>
+      <h1 class="screen__title">Your portfolio is live</h1>
+      <p class="screen__sub">This is a real, rendered preview. Download it as a self-contained HTML file whenever it's ready.</p>
+
+      <div class="preview-frame-wrap">
+        <div class="preview-frame-bar">
+          <span class="preview-frame-bar__dot"></span>
+          <span class="preview-frame-bar__dot"></span>
+          <span class="preview-frame-bar__dot"></span>
+          <span class="preview-frame-bar__url">preview / index.html</span>
+        </div>
+        <iframe id="previewFrame" title="Portfolio preview"></iframe>
+      </div>
+
+      <div class="warnings" id="warningsBox">
+        <p class="warnings__title">Heads up</p>
+        <ul id="warningsList"></ul>
+      </div>
+
+      <div class="actions-row">
+        <button class="btn btn--ghost" id="backToSections" type="button">← Back to sections</button>
+        <button class="btn btn--primary" id="downloadBtn" type="button">Download index.html ↓</button>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
